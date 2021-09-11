@@ -1,4 +1,4 @@
-module hawkgo
+module github.com/KakashiHatake324/hawkgo
 
 go 1.16
 
