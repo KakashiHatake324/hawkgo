@@ -256,7 +256,6 @@ func (scraper *Scraper) ChallengeInitiationPayload() (*http.Response, error) {
 		}
 
 	}
-
 }
 
 func (scraper *Scraper) InitiateCloudflare() (*http.Response, error) {
