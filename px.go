@@ -90,7 +90,7 @@ func (px *PX) GetPayload(endpoint int, token ...string) error {
 			req.Header.Set("Accept", "*/*")
 			req.Header.Set("Connection", "keep-alive")
 			r, err = px.Client.Do(req)
-			log.Println(r.StatusCode)
+			log.Println(r.StatusCode, url+"?"+CreateParams(px.Params))
 			if err != nil {
 				fmt.Println(errText + err.Error())
 				continue
