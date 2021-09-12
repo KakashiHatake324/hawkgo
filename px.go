@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"regexp"
 	"strings"
@@ -90,21 +89,20 @@ func (px *PX) GetPayload(endpoint int, token ...string) error {
 			req.Header.Set("Accept", "*/*")
 			req.Header.Set("Connection", "keep-alive")
 			r, err = px.Client.Do(req)
-			log.Println(r.StatusCode, url+"?"+CreateParams(px.Params))
 			if err != nil {
-				fmt.Println(errText + err.Error())
+				//fmt.Println(errText + err.Error())
 				continue
 			}
 			body, err := ReadAndCloseBody(r.Body)
 			if err != nil {
-				fmt.Println(errText + err.Error())
+				//fmt.Println(errText + err.Error())
 				continue
 			}
 
 			var jsonMap map[string]interface{}
 			err = json.Unmarshal(body, &jsonMap)
 			if err != nil {
-				fmt.Println(errText + err.Error())
+				//fmt.Println(errText + err.Error())
 				continue
 			}
 			px.CurrentPayload = jsonMap["result"].(string)
@@ -205,7 +203,6 @@ func (px *PX) ParsePXResponse(captcha ...bool) map[string]string {
 
 	px.CaptchaSuccess = false
 
-	log.Println(px.PXResponse.Do)
 	for _, cookie := range px.PXResponse.Do {
 		splitCookie := strings.Split(cookie, "|")
 		if len(splitCookie) >= 2 {
