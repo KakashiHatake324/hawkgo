@@ -208,8 +208,10 @@ func (px *PX) ParsePXResponse(captcha ...bool) map[string]string {
 	log.Println(px.PXResponse.Do)
 	for _, cookie := range px.PXResponse.Do {
 		splitCookie := strings.Split(cookie, "|")
-		if splitCookie[0] == "bake" || splitCookie[1] == "_pxde" {
-			cookieDict[splitCookie[1]] = splitCookie[3]
+		if len(splitCookie) >= 2 {
+			if splitCookie[0] == "bake" || splitCookie[1] == "_pxde" {
+				cookieDict[splitCookie[1]] = splitCookie[3]
+			}
 		}
 
 		if len(captcha) != 0 {
