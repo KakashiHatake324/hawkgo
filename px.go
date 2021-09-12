@@ -66,6 +66,8 @@ func (px *PX) UpdateUserAgent(ua string) {
 	px.USER_AGENT = ua
 }
 
+// Error persists here
+
 func (px *PX) GetPayload(endpoint int, token ...string) error {
 	url := EP_MAPPING[endpoint]
 
@@ -88,6 +90,7 @@ func (px *PX) GetPayload(endpoint int, token ...string) error {
 			req.Header.Set("Accept", "*/*")
 			req.Header.Set("Connection", "keep-alive")
 			r, err = px.Client.Do(req)
+			log.Println(r.StatusCode)
 			if err != nil {
 				fmt.Println(errText + err.Error())
 				continue
@@ -183,8 +186,6 @@ func (px *PX) PostPayloadToPX(isGet ...bool) error {
 	}
 
 	err := ReadAndUnmarshalBody(r.Body, &px.PXResponse)
-	log.Println(px.PXResponse)
-	log.Println(px.PXResponse.Do)
 	if err != nil {
 		fmt.Println("ERROR WHILE PARSING PX RESPONSE: " + err.Error())
 	}
@@ -204,6 +205,7 @@ func (px *PX) ParsePXResponse(captcha ...bool) map[string]string {
 
 	px.CaptchaSuccess = false
 
+	log.Println(px.PXResponse.Do)
 	for _, cookie := range px.PXResponse.Do {
 		splitCookie := strings.Split(cookie, "|")
 		if splitCookie[0] == "bake" || splitCookie[1] == "_pxde" {
