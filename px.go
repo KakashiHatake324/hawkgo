@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"regexp"
 	"strings"
@@ -182,6 +183,8 @@ func (px *PX) PostPayloadToPX(isGet ...bool) error {
 	}
 
 	err := ReadAndUnmarshalBody(r.Body, &px.PXResponse)
+	log.Println(px.PXResponse)
+	log.Println(px.PXResponse.Do)
 	if err != nil {
 		fmt.Println("ERROR WHILE PARSING PX RESPONSE: " + err.Error())
 	}
