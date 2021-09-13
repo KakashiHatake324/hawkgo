@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"regexp"
 	"strings"
@@ -203,6 +204,7 @@ func (px *PX) ParsePXResponse(captcha ...bool) map[string]string {
 
 	px.CaptchaSuccess = false
 
+	log.Println(px.PXResponse.Do)
 	for _, cookie := range px.PXResponse.Do {
 		splitCookie := strings.Split(cookie, "|")
 		if len(splitCookie) >= 2 {
