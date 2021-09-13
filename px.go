@@ -91,16 +91,17 @@ func (px *PX) GetPayload(endpoint int, token ...string) error {
 			req.Header.Set("Connection", "keep-alive")
 			r, err = px.Client.Do(req)
 			if err != nil {
-				fmt.Println(errText + err.Error())
+				//fmt.Println(errText + err.Error())
 				continue
 			}
 			body, err := ReadAndCloseBody(r.Body)
 			if err != nil {
-				fmt.Println(errText + err.Error())
+				//fmt.Println(errText + err.Error())
 				continue
 			}
 
 			var jsonMap map[string]interface{}
+			log.Println(body)
 			err = json.Unmarshal(body, &jsonMap)
 			if err != nil {
 				fmt.Println(errText + err.Error())
